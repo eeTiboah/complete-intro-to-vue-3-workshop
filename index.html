@@ -8,11 +8,31 @@
   </head>
   <body>
     <div id="app">
-      <div v-for="number in numbers">
+      <!-- <div v-for="number in numbers">
         <p v-if="number % 2 == 0">{{number}}</p>
+      </div> -->
+      <!-- <p><span v-for="(character, index) in characters">{{character.name}}{{characters.length - 1 === index ? "" : ", "}}</span></p> -->
+      <label for="avatar">Add character</label>
+      <input 
+        id="avatar"
+        type="text"
+        v-model="characterName" 
+      />
+      <button @click="addCharacter">Add to characters</button>
+
+      <ul>
+        <li v-for="character in characters">{{character.name}}
+          <button @click="addToFavorite(character)">Add to favorite</button>
+        </li>
+      </ul>
+
+      <div>
+        <p v-if="favorites.length === 0">No favorites</p>
+        <div v-else>
+          <p>Favorites list</p>
+          <p v-for="character in favorites">{{character}}</p>
+        </div>
       </div>
-      <p><span v-for="(character, index) in characters">{{character.name}}{{characters.length - 1 === index ? "" : ", "}}</span></p>
-      <p ></p>
 
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -21,14 +41,28 @@
       const app = createApp({
         data: () => ({
           numbers: [2,3,4,5,6,7,8,9,10],
+          characterName: "",
           characters: [{
             name: "Aang"
           },{
             name: "Zuko"
           },{
             name: "Toph"
-          }]
-        })
+          },],
+          favorites: []
+        }),
+        methods: {
+          addToFavorite(character){
+            this.favorites.push(character.name)
+          },
+          addCharacter() {
+            if (this.characterName === ""){
+              return
+            }
+            this.characters.push({name: this.characterName})
+            this.characterName = ""
+          }
+        }
       })
 
       app.mount("#app")

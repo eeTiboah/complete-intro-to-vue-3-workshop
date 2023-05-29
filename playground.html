@@ -14,6 +14,15 @@
       <ul>
         <li v-for="number in numbers">{{number}}</li>
       </ul>
+      <hr />
+
+      <p>{{count}}</p>
+      <label for="incrementAmount">Increase by: </label>
+      <input 
+        type="number" 
+        v-model="incrementAmount"
+        />
+      <button v-on:click="incrementCount($event)">Increment</button>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -21,9 +30,17 @@
       const app = createApp({
         data() {
           return {
+            count: 10,
+            incrementAmount: 10,
             message: "hello there",
             numbers: [1,2,3,4,5]
           }
+        },
+        methods: {
+          incrementCount(event){
+            console.log(event)
+            this.count += this.incrementAmount
+          },
         }
       })
       app.mount("#app")
