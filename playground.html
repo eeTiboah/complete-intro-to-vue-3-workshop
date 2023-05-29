@@ -7,8 +7,8 @@
     <title>Playground — Complete Intro to Vue 3</title>
   </head>
   <body>
-    <h1>Frontend Master</h1>
     <div id="app">
+      <h1>Frontend Master</h1>
       <p v-if="message.length % 2 == 0">Even: {{message}}</p>
       <p v-if="message.length % 2 != 0">Odd: {{message}}</p>
       <ul>
@@ -16,6 +16,7 @@
       </ul>
       <hr />
 
+      <h2>{{displayTitle}}</h2>
       <p>{{count}}</p>
       <label for="incrementAmount">Increase by: </label>
       <input 
@@ -31,6 +32,7 @@
         data() {
           return {
             count: 10,
+            counterTitle: "App Counter",
             incrementAmount: 10,
             message: "hello there",
             numbers: [1,2,3,4,5]
@@ -41,7 +43,23 @@
             console.log(event)
             this.count += this.incrementAmount
           },
-        }
+        },
+        computed: {
+          displayTitle(){
+            if (this.count > 20){
+              return "App Counter > 20"
+            } else {
+              return "App Counter"
+            }
+          }
+        },
+        // watch: {
+        //   count(val){
+        //     if (val > 20){
+        //       this.counterTitle = "App Counter > 20"
+        //     }
+        //   }
+        // }
       })
       app.mount("#app")
     </script>
