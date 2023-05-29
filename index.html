@@ -32,6 +32,8 @@
           <p>Favorites list</p>
           <p v-for="character in favorites">{{character}}</p>
         </div>
+
+        <pre>{{powerStatistics}}</pre>
       </div>
 
     </div>
@@ -43,12 +45,25 @@
           numbers: [2,3,4,5,6,7,8,9,10],
           characterName: "",
           characters: [{
-            name: "Aang"
+            name: "Aang", powers: ["Water","Air", "Fire","Earth"]
           },{
-            name: "Zuko"
+            name: "Zuko", powers: ["Water", "Fire"]
           },{
-            name: "Toph"
-          },],
+            name: "Toph", powers: ["Air", "Earth"]
+          },
+          {
+            name: "FireLord", powers: ["Fire", "Air", "Water"]
+          },
+          {
+            name: "Groot", powers: ["Earth", "Water"]
+          },
+          {
+            name: "Misc", powers: ["Earth", "Air"]
+          },
+          {
+            name: "Mouse", powers: ["Earth", "Fire"]
+          },
+        ],
           favorites: []
         }),
         methods: {
@@ -61,6 +76,26 @@
             }
             this.characters.push({name: this.characterName})
             this.characterName = ""
+          }
+        },
+        computed: {
+          powerStatistics() {
+            const powerList = ["Air", "Water", "Fire", "Earth"]
+            const stats = {
+              Air: 0,
+              Water: 0,
+              Fire: 0,
+              Earth: 0
+            }
+
+            this.characters.forEach(character => {
+              powerList.forEach(power => {
+               if (character.powers.indexOf(power) > -1){
+                  stats[power] += 1
+               }
+              })
+            })
+            return stats
           }
         }
       })
